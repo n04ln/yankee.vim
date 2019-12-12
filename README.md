@@ -3,11 +3,11 @@
 ## Installation
 1. This plugin use `junegunn/fzf`, so please install it and setup runtimepath. if already installed fzf in your environment, then unnecessary this step.
 ``` sh
+# Install fzf
 $ git clone https://github.com/junegunn/fzf.git $HOME/.fzf
 ```
-
-In `.vimrc`.
 ``` vim
+" In .vimrc
 Plug '$HOME/.fzf'
 ```
 
