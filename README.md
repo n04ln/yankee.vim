@@ -16,9 +16,9 @@ Plug '$HOME/.fzf'
 Plug 'n04ln/yankee.vim'
 ```
 
-3. setup `g:yankee_buf_list`. This variable is an Array. There are used by this plugin.
+3. setup `g:yankee_buf_list`. This variable is an Array of the name of target buffers. There are used by this plugin.
 ```
-let g:yankee_buf_list = ['b', 'c', 'f', 'h']
+let g:yankee_buf_list = ['"b', '"c', '"f', '"h']
 ```
 
 3. Complete :tada:
@@ -28,3 +28,4 @@ let g:yankee_buf_list = ['b', 'c', 'f', 'h']
 In Visual mode, when press `<C-y>y`, yank text to one of the `g:yankee_buf_list`.
 
 In Normal mode, when press `<C-y>p`, paste text with fzf (plz choose it).
+

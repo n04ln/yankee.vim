@@ -13,7 +13,7 @@ func! yankee#paste() abort
   let resp = execute(":reg " . join(g:yankee_buf_list, ' '))
   let resps = split(resp, "\n")
   call remove(resps, 0)
-  call fzf#run({'source': resps, 'sink': funcref('s:write')})
+  call fzf#run({'source': resps, 'sink': funcref('s:write'), 'down': '25%'})
 endfunc
 
 func! yankee#yank() range
@@ -24,7 +24,7 @@ func! yankee#yank() range
 
   let reg = s:cursor % len(g:yankee_buf_list)
   echom "yank to " . g:yankee_buf_list[l:reg] . " buffer."
-  execute ':norm gv"' . g:yankee_buf_list[l:reg] . 'y'
+  execute ':norm gv' . g:yankee_buf_list[l:reg] . 'y'
   let s:cursor += 1
 endfunc
 
