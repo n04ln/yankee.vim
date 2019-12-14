@@ -10,14 +10,16 @@ func! s:write(s) abort
 endfunc
 
 func! yankee#paste() abort
-  let resp = execute(":reg " . join(g:yankee_buf_list, ' '))
+  let buf_list = copy(g:yankee_buf_list) " NOTE: map is Destructive Function
+  let resp = execute(":reg " . join(map(l:buf_list, {_, v -> strpart(v,1,1)}), ' '))
   let resps = split(resp, "\n")
-  call remove(resps, 0)
+  call remove(resps, 0) " NOTE: remove `--- Registers ---`
+
   call fzf#run({'source': resps, 'sink': funcref('s:write'), 'down': '25%'})
 endfunc
 
 func! yankee#yank() range
-  if len(g:yankee_buf_list) == 0
+  if !exists("g:yankee_buf_list") || len(g:yankee_buf_list) == 0
     echoerr "g:yankee_buf_list is not defined. plz set it!"
     return
   endif
@@ -25,7 +27,13 @@ func! yankee#yank() range
   let reg = s:cursor % len(g:yankee_buf_list)
   echom "yank to " . g:yankee_buf_list[l:reg] . " buffer."
   execute ':norm gv' . g:yankee_buf_list[l:reg] . 'y'
+
   let s:cursor += 1
+
+  " NOTE: To avoid Integer Overflow
+  if s:cursor == len(g:yankee_buf_list)
+    let s:cursor = 0
+  endif
 endfunc
 
 let &cpo = s:save_cpo
