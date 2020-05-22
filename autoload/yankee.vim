@@ -26,9 +26,7 @@ func! yankee#yank() range
 
   let reg = s:cursor % len(g:yankee_buf_list)
   echom "yank to " . g:yankee_buf_list[l:reg] . " buffer."
-
   execute ':norm gv' . g:yankee_buf_list[l:reg] . 'y'
-  execute ':norm gv' . '"+' . 'y'
 
   let s:cursor += 1
 
